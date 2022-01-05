@@ -2,8 +2,25 @@
 version: 2.1
 orbs:
   aws-eks: circleci/aws-eks@2.0
+  docker: circleci/docker@2.0.1
   kubernetes: circleci/kubernetes@1.0
+  python: circleci/python@1.5.0
+
 jobs:
+  configure-docker:
+    description: Configure Docker environment.
+    docker:
+      - image: circleci/docker:2.0.1
+    steps:
+      - run:
+          name: Configure docker
+          when: on_fail
+          command: |
+            docker build --tag=captone .
+            docker image ls
+            docker run -p 8000:80 api
+            #exit 1
+
   test-cluster:
     executor: aws-eks/python3
     parameters:
@@ -20,15 +37,6 @@ jobs:
             kubectl get services
           name: Test cluster
 workflows:
-  deployment:
+  default:
     jobs:
-      - aws-eks/create-cluster:
-          cluster-name: my-eks-demo
-      - test-cluster:
-          cluster-name: my-eks-demo
-          requires:
-            - aws-eks/create-cluster
-      - aws-eks/delete-cluster:
-          cluster-name: my-eks-demo
-          requires:
-            - test-cluster
+      - configure-docker
