@@ -18,7 +18,7 @@ jobs:
           command: |
             docker build --tag=captone .
             docker image ls
-            docker run -p 8000:80 api
+            docker run -p 8000:80 captone
             #exit 1
 
   test-cluster:
