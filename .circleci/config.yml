@@ -31,7 +31,7 @@ jobs:
               --query "Reservations[*].Instances[*].PublicIpAddress" \
               --filters "Name=tag:project,Values=capstone-Project5" \
               --output=text)
-            echo $backendip >> .circleci/ansible/inventory.txt
+            echo $backendip >> .circleci/ansible/machineip.txt
             
   deploy-frontend:
     docker:
@@ -50,22 +50,17 @@ jobs:
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
               #exit 1
 
-  configure-aws-eks:
-    description: Configure AWS EKS environment.
+  create-eks-cluster:
+    description: Configure eks cluster
     docker:
-      - image: circleci/docker@1.4.0
-        auth:
-          username: $DOCKER_USER  # can specify string literal values
-          password: $DOCKER_PASSWORD
+      - image: aws-eks/python3
     steps:
       - run:
-          name: Configure docker
-          when: on_fail
+          name: Ensure eks cluster exists
           command: |
-            docker build --tag=captone .
-            docker image ls
-            docker run -p 8000:80 captone
-            #exit 1
+             eksctl create cluster -f .circleci/files/cluster.yml
+
+  
 
 test-cluster:
     executor: aws-eks/python3
@@ -87,5 +82,5 @@ workflows:
     jobs:
       #- deploy-backend
       #- deploy-frontend
-      - configure-docker
+      - create-eks-cluster
       #- test-cluster
