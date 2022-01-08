@@ -74,7 +74,7 @@ test-cluster:
 workflows:
   default:
     jobs:
-      - deploy-backend
-      - deploy-frontend
+      #- deploy-backend
+      #- deploy-frontend
       - configure-docker
       #- test-cluster
