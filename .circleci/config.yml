@@ -24,7 +24,15 @@ jobs:
               --stack-name "backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
               #exit 1
-
+      - run:
+          name: Add back-end ip to ansible inventory
+          command: |
+            backendip=$(aws ec2 describe-instances \
+              --query "Reservations[*].Instances[*].PublicIpAddress" \
+              --filters "Name=tag:project,Values=capstone-Project5" \
+              --output=text)
+            echo $backendip >> .circleci/ansible/inventory.txt
+            
   deploy-frontend:
     docker:
       - image: amazon/aws-cli
@@ -42,8 +50,8 @@ jobs:
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
               #exit 1
 
-  configure-docker:
-    description: Configure Docker environment.
+  configure-aws-eks:
+    description: Configure AWS EKS environment.
     docker:
       - image: circleci/docker@1.4.0
         auth:
