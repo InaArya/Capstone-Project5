@@ -46,6 +46,9 @@ jobs:
     description: Configure Docker environment.
     docker:
       - image: circleci/docker:2.0.1
+      auth:
+          username: $DOCKER_USER  # can specify string literal values
+          password: $DOCKER_PASSWORD
     steps:
       - run:
           name: Configure docker
