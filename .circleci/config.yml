@@ -60,7 +60,18 @@ jobs:
           command: |
              eksctl create cluster -f .circleci/files/cluster.yml
 
-  
+  cloudfront-update:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - run:
+          name: Update cloudfront distribution
+          command: |
+            aws cloudformation deploy \
+              --template-file .circleci/files/cloudfront.yml \
+              --stack-name capstone-Project5-Cloudfront \
+              --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" \
+              --tags project=capstone
 
 test-cluster:
     executor: aws-eks/python3
@@ -82,5 +93,6 @@ workflows:
     jobs:
       #- deploy-backend
       #- deploy-frontend
+      - cloudfront-update
       - create-eks-cluster
       #- test-cluster
