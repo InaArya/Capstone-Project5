@@ -42,7 +42,7 @@ jobs:
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
               #exit 1
 
-configure-docker:
+  configure-docker:
     description: Configure Docker environment.
     docker:
       - image: circleci/docker:2.0.1
@@ -76,5 +76,5 @@ workflows:
     jobs:
       - deploy-backend
       - deploy-frontend
-      #- configure-docker
+      - configure-docker
       #- test-cluster
