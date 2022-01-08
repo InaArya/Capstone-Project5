@@ -23,8 +23,8 @@ deploy-infrastructure:
           command: |
             aws cloudformation deploy \
               --template-file .circleci/files/backend.yml \
-              --tags project=Udacity-Project3 \
-              --stack-name "back-end-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --tags project=Capstone-Project5 \
+              --stack-name "infrastructure-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
               #exit 1
 
