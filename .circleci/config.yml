@@ -12,10 +12,7 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
-      
-      #- run:
-          #name: Install tar
-          #command: yum install -y tar gzip   
+        
       - run:
           name: Ensure back-end infrastructure exists
           command: |
@@ -24,7 +21,7 @@ jobs:
             aws cloudformation deploy \
               --template-file .circleci/files/backend.yml \
               --tags project=capstone-Project5 \
-              --stack-name "infrastructure-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --stack-name "backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
               #exit 1
 
@@ -41,7 +38,7 @@ jobs:
             aws cloudformation deploy \
               --template-file .circleci/files/frontend.yml \
               --tags project=capstone-Project5 \
-              --stack-name "infrastructure-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --stack-name "frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
               #exit 1
 
