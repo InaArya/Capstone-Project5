@@ -11,10 +11,10 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       # Checkout code from git
-      - checkout
-      - run:
-          name: Install tar
-          command: yum install -y tar gzip   
+      #- checkout
+      #- run:
+       #   name: Install tar
+        #  command: yum install -y tar gzip   
       - run:
           name: Ensure back-end infrastructure exists
           command: |
