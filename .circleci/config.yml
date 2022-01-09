@@ -7,7 +7,7 @@ executors:
           username: $DOCKERHUB_USER
           password: $DOCKERHUB_PASSWORD 
 orbs:
-  aws-eks: circleci/aws-eks@2.0
+  aws-eks: circleci/aws-eks@1.1.0
   docker: circleci/docker@2.0.1
   kubernetes: circleci/kubernetes@1.0
   python: circleci/python@1.5.0
@@ -71,6 +71,19 @@ jobs:
           command: |
              eksctl create cluster -f .circleci/files/cluster.yml
 
+  docker-image:
+    docker:
+      - image: circleci/docker
+    steps:
+      # Checkout code from git
+      - checkout
+
+      - run:
+          name: Create docker image and run
+          command: |
+            docker-compose up
+            docker image ls
+
   cloudfront-update:
     docker:
       - image: amazon/aws-cli
@@ -107,7 +120,8 @@ workflows:
   default:
     jobs:
       #- deploy-backend
-      - create-eks-cluster
+       - docker-image
+      #- create-eks-cluster
           #requires: [deploy-backend]
       #- deploy-frontend
       #- cloudfront-update
