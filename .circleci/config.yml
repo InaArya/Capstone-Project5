@@ -54,11 +54,13 @@ jobs:
     description: Configure eks cluster
     docker:
       - image: aws-eks/python3
+        auth:
+            username: $DOCKER_USER
+            password: $DOCKER_PASSWORD
     steps:
       - run:
           name: Ensure eks cluster exists
           command: |
-             docker login $DOCKER_USERNAME foo $DOCKER_PASSWORD
              eksctl create cluster -f .circleci/files/cluster.yml
 
   cloudfront-update:
@@ -96,7 +98,7 @@ test-cluster:
 workflows:
   default:
     jobs:
-      - deploy-backend
+      #- deploy-backend
       - create-eks-cluster:
           requires: [deploy-backend]
       #- deploy-frontend
