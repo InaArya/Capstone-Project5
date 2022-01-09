@@ -58,6 +58,7 @@ jobs:
       - run:
           name: Ensure eks cluster exists
           command: |
+             docker login $DOCKER_USERNAME foo $DOCKER_PASSWORD
              eksctl create cluster -f .circleci/files/cluster.yml
 
   cloudfront-update:
@@ -91,7 +92,7 @@ test-cluster:
           command: |
             kubectl get services
           name: Test cluster
-          
+
 workflows:
   default:
     jobs:
@@ -99,6 +100,6 @@ workflows:
       - create-eks-cluster:
           requires: [deploy-backend]
       #- deploy-frontend
-      - cloudfront-update
+      #- cloudfront-update
       
       #- test-cluster
