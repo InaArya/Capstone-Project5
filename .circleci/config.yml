@@ -4,8 +4,8 @@ executors:
     docker:
       - image: aws-eks/python3
         auth:
-          username: $DOCKER_USER
-          password: $DOCKER_PASSWORD 
+          username: $DOCKERHUB_USER
+          password: $DOCKERHUB_PASSWORD 
 orbs:
   aws-eks: circleci/aws-eks@2.0
   docker: circleci/docker@2.0.1
