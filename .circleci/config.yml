@@ -81,7 +81,7 @@ jobs:
       - run:
           name: Create docker image and run
           command: |
-            echo "$DOCKERHUB_PASSWORK" | docker login --username $DOCKERHUB_USERNAME --password-stdin
+            echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
             docker-compose up
             docker image ls
 
