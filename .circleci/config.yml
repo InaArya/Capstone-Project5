@@ -91,11 +91,14 @@ test-cluster:
           command: |
             kubectl get services
           name: Test cluster
+          
 workflows:
   default:
     jobs:
-      #- deploy-backend
+      - deploy-backend
+      - create-eks-cluster:
+          requires: [deploy-backend]
       #- deploy-frontend
       - cloudfront-update
-      - create-eks-cluster
+      
       #- test-cluster
