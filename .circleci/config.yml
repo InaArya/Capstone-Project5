@@ -1,4 +1,11 @@
 version: 2.1
+executors:
+  cap-executor:
+    docker:
+      - image: aws-eks/python3
+        auth:
+          username: $DOCKER_USER
+          password: $DOCKER_PASSWORD 
 orbs:
   aws-eks: circleci/aws-eks@2.0
   docker: circleci/docker@2.0.1
@@ -54,9 +61,8 @@ jobs:
     description: Configure eks cluster
     docker:
       - image: aws-eks/python3
-        auth:
-            username: $DOCKER_USER
-            password: $DOCKER_PASSWORD
+    executor: cap-executor
+    
     steps:
       - run:
           name: Ensure eks cluster exists
