@@ -72,11 +72,8 @@ jobs:
              eksctl create cluster -f .circleci/files/cluster.yml
 
   docker-image:
-    docker:
-      - image: circleci/docker
-        auth:
-              username: $DOCKERHUB_USER
-              password: $DOCKERHUB_PASSWORD 
+    machine: true
+        
     steps:
       # Checkout code from git
       - checkout
@@ -84,6 +81,7 @@ jobs:
       - run:
           name: Create docker image and run
           command: |
+            echo "$DOCKERHUB_PASSWORK" | docker login --username $DOCKERHUB_USERNAME --password-stdin
             docker-compose up
             docker image ls
 
