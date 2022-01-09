@@ -61,7 +61,9 @@ jobs:
     description: Configure eks cluster
     docker:
       - image: aws-eks/python3
-    executor: cap-executor
+        auth:
+            username: $DOCKERHUB_USER
+            password: $DOCKERHUB_PASSWORD 
     
     steps:
       - run:
