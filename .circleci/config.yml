@@ -98,7 +98,7 @@ jobs:
           command: |
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
             dockerpath=$DOCKERHUB_USERNAME/path
-            docker push /home/.circleci:capstone
+            docker push $dockerpath:capstone
 
   cloudfront-update:
     docker:
