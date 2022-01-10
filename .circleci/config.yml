@@ -98,8 +98,8 @@ jobs:
           command: |
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
             dockerpath=$DOCKERHUB_USERNAME/path
-            docker tag /code/capstone:uploadImg $dockerpath:upoadImg 
-            docker push $dockerpath:uploadImg
+            docker tag /code/capstone 
+            docker push /code/capstone
 
   cloudfront-update:
     docker:
