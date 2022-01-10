@@ -71,7 +71,7 @@ jobs:
           command: |
              eksctl create cluster -f .circleci/files/cluster.yml
 
-  docker-image:
+  create-docker-image:
     machine: true
         
     steps:
@@ -84,6 +84,21 @@ jobs:
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
             docker-compose up
             docker image ls
+            exit 1
+
+  upload-docker-image:
+    machine: true
+        
+    steps:
+      # Checkout code from git
+      - checkout
+
+      - run:
+          name: Create docker image and run
+          command: |
+            echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
+            dockerpath=$DOCKERHUB_USERNAME/path
+            docker push $dockerpath:latest
 
   cloudfront-update:
     docker:
@@ -121,7 +136,8 @@ workflows:
   default:
     jobs:
       #- deploy-backend
-       - docker-image
+       - create-docker-image 
+       - upload-docker-image
       #- create-eks-cluster
           #requires: [deploy-backend]
       #- deploy-frontend
