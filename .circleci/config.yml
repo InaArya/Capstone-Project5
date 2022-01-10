@@ -83,7 +83,7 @@ jobs:
           command: |
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
             docker build --tag=capstone .
-            docker run -p 5000:5000 capstone
+            #docker run -p 5000:5000 capstone
             docker image ls
             exit 1
 
