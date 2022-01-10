@@ -94,12 +94,12 @@ jobs:
       - checkout
 
       - run:
-          name: Upload docker image and run
+          name: Upload docker image
           command: |
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
             dockerpath=$DOCKERHUB_USERNAME/path
             #docker tag /code/capstone 
-            docker #dockerpath:capstone
+            docker push #dockerpath:capstone
 
   cloudfront-update:
     docker:
