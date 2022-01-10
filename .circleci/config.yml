@@ -98,8 +98,8 @@ jobs:
           command: |
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
             dockerpath=$DOCKERHUB_USERNAME/path
-            docker tag capstone:latest $dockerpath:latest
-            docker push $dockerpath:latest
+            docker tag inaarya/capstone 
+            docker push inaarya/capstone
 
   cloudfront-update:
     docker:
