@@ -137,7 +137,8 @@ workflows:
     jobs:
       #- deploy-backend
        - create-docker-image 
-       - upload-docker-image
+       - upload-docker-image:
+           requires: [create-docker-image]
       #- create-eks-cluster
           #requires: [deploy-backend]
       #- deploy-frontend
