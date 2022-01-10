@@ -97,7 +97,7 @@ jobs:
           name: Create docker image and run
           command: |
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
-            dockerpath=$DOCKERHUB_USERNAME/path
+            #dockerpath=$DOCKERHUB_USERNAME/path
             docker push $dockerpath:latest
 
   cloudfront-update:
