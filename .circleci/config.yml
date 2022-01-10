@@ -99,7 +99,7 @@ jobs:
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
             dockerpath=$DOCKERHUB_USERNAME/path
             #docker tag /code/capstone 
-            docker push #dockerpath:capstone
+            docker push $dockerpath:/code/capstone 
 
   cloudfront-update:
     docker:
