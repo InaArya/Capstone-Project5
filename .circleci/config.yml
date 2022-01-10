@@ -94,11 +94,11 @@ jobs:
       - checkout
 
       - run:
-          name: Create docker image and run
+          name: Upload docker image and run
           command: |
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
             dockerpath=$DOCKERHUB_USERNAME/path
-            docker push /home/.circleci/capstone
+            docker push /home/.circleci:capstone
 
   cloudfront-update:
     docker:
