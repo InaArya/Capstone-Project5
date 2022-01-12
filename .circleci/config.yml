@@ -79,30 +79,15 @@ jobs:
       - checkout
 
       - run:
-          name: Create docker image and run
+          name: Create docker image and upload
           command: |
             dockerpath=inaarya/path
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
             pwd
-            docker build --tag=capstone .
-            docker tag capstone:latest $dockerpath:latest
-            docker push $dockerpath:latest
-              
-
-  upload-docker-image:
-    machine: true
-        
-    steps:
-      # Checkout code from git
-      - checkout
-
-      - run:
-          name: Upload docker image
-          command: |
-            dockerpath=inaarya/path
-            echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
-            docker push latest
-
+            docker build --tag=img .
+            docker tag img:capstone $dockerpath:capstone
+            docker push $dockerpath:capstone
+      
   cloudfront-update:
     docker:
       - image: amazon/aws-cli
