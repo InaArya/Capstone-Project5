@@ -83,6 +83,7 @@ jobs:
           command: |
             dockerpath=inaarya/path
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
+            pwd
             docker build --tag=capstone .
             docker tag capstone:latest $dockerpath:latest
             #docker tag capstone:latest $DOCKERHUB_USERNAME/path:latest
