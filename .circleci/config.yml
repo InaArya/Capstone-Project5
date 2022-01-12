@@ -84,9 +84,9 @@ jobs:
             dockerpath=inaarya/path
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
             pwd
-            docker build --tag=img .
-            docker tag img:capstone $dockerpath:capstone
-            docker push $dockerpath:capstone
+            docker build --tag=capstone .
+            docker tag capstone:latest $dockerpath:latest
+            docker push $dockerpath:latest
       
   cloudfront-update:
     docker:
