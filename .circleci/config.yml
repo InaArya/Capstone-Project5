@@ -81,9 +81,11 @@ jobs:
       - run:
           name: Create docker image and run
           command: |
+            dockerpath=inaarya/path
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
             docker build --tag=capstone .
-            docker tag capstone:latest $DOCKERHUB_USERNAME/path:latest
+            docker tag capstone:latest $dockerpath:latest
+            #docker tag capstone:latest $DOCKERHUB_USERNAME/path:latest
               
 
   upload-docker-image:
@@ -96,8 +98,9 @@ jobs:
       - run:
           name: Upload docker image
           command: |
+            dockerpath=inaarya/path
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
-            docker push $DOCKERHUB_USERNAME/path:latest
+            docker push $dockerpath:latest
 
   cloudfront-update:
     docker:
