@@ -83,6 +83,7 @@ jobs:
           command: |
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
             docker build -t $DOCKERHUB_USERNAME/path/capstone .
+            docker tag img:capstone $DOCKERHUB_USERNAME/path:capstone
             #docker run -p 5000:5000 capstone
             docker image ls         
 
@@ -97,9 +98,7 @@ jobs:
           name: Upload docker image
           command: |
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
-            dockerpath=$DOCKERHUB_USERNAME/path
-            #docker tag /code/capstone 
-            docker push $DOCKERHUB_USERNAME/path/capstone
+            docker push $DOCKERHUB_USERNAME/path:capstone
 
   cloudfront-update:
     docker:
