@@ -101,7 +101,7 @@ jobs:
           command: |
             dockerpath=inaarya/path
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
-            docker push latest
+            docker push /home/circleci/project/latest
 
   cloudfront-update:
     docker:
