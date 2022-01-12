@@ -82,7 +82,7 @@ jobs:
           name: Create docker image and run
           command: |
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
-            docker build -t project/capstone .
+            docker build -t path/capstone .
             #docker run -p 5000:5000 capstone
             docker image ls         
 
@@ -99,7 +99,7 @@ jobs:
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
             dockerpath=$DOCKERHUB_USERNAME/path
             #docker tag /code/capstone 
-            docker push cproject/capstone
+            docker push path/capstone
 
   cloudfront-update:
     docker:
