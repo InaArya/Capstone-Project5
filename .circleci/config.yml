@@ -67,7 +67,8 @@ jobs:
           name: Ensure eks cluster exists
           command: |
              echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin
-             eksctl create cluster -f .circleci/files/cluster.yml
+             #eksctl create cluster -f .circleci/files/cluster.yml
+             eksctl create cluster
 
   create-and-upload-docker-image:
     machine: true
