@@ -3,9 +3,7 @@ executors:
   cap-executor:
     docker:
       - image: aws-eks/python3
-        auth:
-          username: $DOCKERHUB_USER
-          password: $DOCKERHUB_PASSWORD 
+       
 orbs:
   aws-eks: circleci/aws-eks@1.1.0
   docker: circleci/docker@2.0.1
@@ -61,17 +59,15 @@ jobs:
     description: Configure eks cluster
     docker:
       - image: aws-eks/python3
-        auth:
-            username: $DOCKERHUB_USER
-            password: $DOCKERHUB_PASSWORD 
-    
+        
     steps:
       - run:
           name: Ensure eks cluster exists
           command: |
+             docker login --username $DOCKERHUB_USERNAME --password-stdin
              eksctl create cluster -f .circleci/files/cluster.yml
 
-  create-docker-image:
+  create-and-upload-docker-image:
     machine: true
         
     steps:
@@ -82,7 +78,7 @@ jobs:
           name: Create docker image and upload
           command: |
             dockerpath=inaarya/path
-            echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_USERNAME --password-stdin
+            docker login --username $DOCKERHUB_USERNAME --password-stdin
             pwd
             docker build --tag=capstone .
             docker tag capstone:latest $dockerpath:latest
@@ -124,8 +120,8 @@ workflows:
   default:
     jobs:
       #- deploy-backend
-       - create-docker-image  
-      #- create-eks-cluster
+      #- create-and-upload-docker-image  
+      - create-eks-cluster
           #requires: [deploy-backend]
       #- deploy-frontend
       #- cloudfront-update
