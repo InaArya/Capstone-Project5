@@ -68,7 +68,7 @@ jobs:
           command: |
              echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin
              #eksctl create cluster -f .circleci/files/cluster.yml
-             aws eks --region us-west-2 update-kubeconfig --name capstone-kube
+             aws eks --region us-east-1 update-kubeconfig --name capstone-kube
 
   create-and-upload-docker-image:
     machine: true
