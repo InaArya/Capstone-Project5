@@ -61,10 +61,13 @@ jobs:
       - image: aws-eks/python3
         
     steps:
+      # Checkout code from git
+      - checkout
+
       - run:
           name: Ensure eks cluster exists
           command: |
-             docker login --username $DOCKERHUB_USERNAME --password-stdin
+             echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin
              eksctl create cluster -f .circleci/files/cluster.yml
 
   create-and-upload-docker-image:
@@ -78,7 +81,7 @@ jobs:
           name: Create docker image and upload
           command: |
             dockerpath=inaarya/path
-            docker login --username $DOCKERHUB_USERNAME --password-stdin
+            echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin
             pwd
             docker build --tag=capstone .
             docker tag capstone:latest $dockerpath:latest
