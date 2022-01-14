@@ -57,8 +57,7 @@ jobs:
 
   create-eks-cluster:
     description: Configure eks cluster
-    docker:
-      - image: aws-eks/python3
+    machine: true
         
     steps:
       # Checkout code from git
