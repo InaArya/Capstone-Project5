@@ -67,8 +67,8 @@ jobs:
           install-kubectl: true
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
-          resource-file-path: /.circleci/files/cluster.yml
-          #resource-name: capstone-cluster
+          resource-file-path: ~/.circleci/files/cluster.yml
+          resource-name: capstone-cluster
 
 
   create-and-upload-docker-image:
