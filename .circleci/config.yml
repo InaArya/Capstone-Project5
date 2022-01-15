@@ -1,9 +1,9 @@
 version: 2.1
 executor: aws-eks/python3
 parameters:
-  cluster-name:
+  clustername: 
         type: string
-        default: capstoneCluster
+        default: capstonecluster
        
 orbs:
   aws-eks: circleci/aws-eks@1.1.0
