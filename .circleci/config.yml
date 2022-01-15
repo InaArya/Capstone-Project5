@@ -1,8 +1,9 @@
 version: 2.1
-executors:
-  cap-executor:
-    docker:
-      - image: aws-eks/python3
+executor: aws-eks/python3
+parameters:
+  cluster-name:
+        type: string
+        default: "capstoneCluster"
        
 orbs:
   aws-eks: circleci/aws-eks@1.1.0
@@ -54,24 +55,19 @@ jobs:
               --stack-name "frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
               #exit 1
-
+  
   create-eks-cluster:
-    create-deployment:
-    executor: aws-eks/python3
-    #parameters:
-     # cluster-name: capstoneCluster
-      #  description:
-       #   capstoneCluster
-        #type: string  
-
+    description: Configure eks cluster
+    machine: true
+        
     steps:
       - checkout
       - aws-eks/update-kubeconfig-with-authenticator:
-          cluster-name: capstoneCluster
+          cluster-name: parameters.capstoneCluster
           install-kubectl: true
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
-          resource-file-path: /.circleci/file/cluster.yml
+          resource-file-path: /.circleci/files/cluster.yml
           resource-name: capstone-cluster
 
 
