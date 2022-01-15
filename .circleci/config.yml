@@ -67,7 +67,7 @@ jobs:
           name: Ensure eks cluster exists
           command: |
              echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin
-             eksctl create cluster --name capstoneCluster --managed --region us-east-1 -f .circleci/files/cluster.yml
+             aws eksctl create cluster --name capstoneCluster --managed --region us-east-1 -f .circleci/files/cluster.yml
              #aws eks --region us-east-1 update-kubeconfig --name capstone-kube
 
   create-and-upload-docker-image:
