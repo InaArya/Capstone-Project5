@@ -56,19 +56,24 @@ jobs:
               #exit 1
 
   create-eks-cluster:
-    description: Configure eks cluster
-    machine: true
-        
-    steps:
-      # Checkout code from git
-      - checkout
+    create-deployment:
+    executor: aws-eks/python3
+    #parameters:
+     # cluster-name: capstoneCluster
+      #  description:
+       #   capstoneCluster
+        #type: string  
 
-      - run:
-          name: Ensure eks cluster exists
-          command: |
-             echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin
-             aws eksctl create cluster --name capstoneCluster --managed --region us-east-1 -f .circleci/files/cluster.yml
-             #aws eks --region us-east-1 update-kubeconfig --name capstone-kube
+    steps:
+      - checkout
+      - aws-eks/update-kubeconfig-with-authenticator:
+          cluster-name: capstoneCluster
+          install-kubectl: true
+      - kubernetes/create-or-update-resource:
+          get-rollout-status: true
+          resource-file-path: /.circleci/file/cluster.yml
+          resource-name: capstone-cluster
+
 
   create-and-upload-docker-image:
     machine: true
