@@ -63,7 +63,7 @@ jobs:
     steps:
       - checkout
       - aws-eks/update-kubeconfig-with-authenticator:
-          cluster-name: parameters.clustername
+          cluster-name: capstoneCluster
           install-kubectl: true
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
