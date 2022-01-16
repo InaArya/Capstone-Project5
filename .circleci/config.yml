@@ -179,8 +179,8 @@ workflows:
       #- deploy-backend
       #- create-and-upload-docker-image 
       - lint 
-      - create-eks-cluster
-      - deploy-cluster
+     # - create-eks-cluster
+     # - deploy-cluster
           #requires: [deploy-backend]
       #- deploy-frontend
       #- cloudfront-update
