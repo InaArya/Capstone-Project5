@@ -178,9 +178,9 @@ workflows:
     jobs:
       #- deploy-backend
       #- create-and-upload-docker-image 
-      - lint 
+     # - lint 
      # - create-eks-cluster
-     # - deploy-cluster
+      - deploy-cluster
           #requires: [deploy-backend]
       #- deploy-frontend
       #- cloudfront-update
