@@ -69,7 +69,7 @@ jobs:
   
   create-eks-cluster:
     docker: 
-      - image: aws-eks/python3
+      - image: amazon/aws-eks
        
     steps:
       - checkout
