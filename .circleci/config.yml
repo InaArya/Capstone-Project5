@@ -66,7 +66,8 @@ jobs:
       - run:
           name: Create eks cluster
           command: |
-            aws eks create-cluster --name --role-arn arn:aws:iam::766084751049:role/eks-service-role-AWSServiceRoleForAmazon
+            aws eks create-cluster --name capstoneCluster
+            --role-arn arn:aws:iam::766084751049:role/eks-service-role-AWSServiceRoleForAmazon
             capstoneCluster -f ~/.circleci/files/cluster.yml
       #- aws-eks/update-kubeconfig-with-authenticator:
        #   cluster-name: capstone-cluster
