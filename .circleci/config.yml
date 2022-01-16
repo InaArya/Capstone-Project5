@@ -138,7 +138,7 @@ jobs:
           install-kubectl: true
       - kubernetes/create-or-update-resource:
           get-rollout-status: false
-          resource-file-path: ~/.circleci/files/cluster.yml
+          resource-file-path: cluster.yml
           resource-name: capstonecluster
 
   cloudfront-update:
