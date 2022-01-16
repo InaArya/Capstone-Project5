@@ -75,6 +75,7 @@ jobs:
       - run:
           command: |
            echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin
+           export PATH=$PATH:/bin/bash
            eksctl create cluster name capstonecluster -f cluster.yml
       
     
