@@ -1,0 +1,12 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: capstoneCluster
+  
+nodeGroups:
+  - name: ng-1
+    instanceType: t2.small
+    nodes: 2
+    desiredCapacity: 2
+  
