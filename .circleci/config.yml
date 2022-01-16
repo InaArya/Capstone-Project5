@@ -62,13 +62,18 @@ jobs:
         
     steps:
       - checkout
-      - aws-eks/update-kubeconfig-with-authenticator:
-          cluster-name: capstone-cluster
-          install-kubectl: true
-      - kubernetes/create-or-update-resource:
-          get-rollout-status: true
-          resource-file-path: ~/.circleci/files/cluster.yml
-          resource-name: capstone-cluster
+
+      - run:
+          name: Create eks cluster
+          command: |
+            aws eks create-cluster --name capstoneCluster -f ~/.circleci/files/cluster.yml
+      #- aws-eks/update-kubeconfig-with-authenticator:
+       #   cluster-name: capstone-cluster
+        #  install-kubectl: true
+      #- kubernetes/create-or-update-resource:
+       #   get-rollout-status: true
+        #  resource-file-path: ~/.circleci/files/cluster.yml
+         # resource-name: capstone-cluster
 
 
   create-and-upload-docker-image:
