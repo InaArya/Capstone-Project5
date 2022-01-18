@@ -203,8 +203,8 @@ workflows:
      # - lint 
      # - create-eks-cluster
      # - deploy-cluster
-      #- deploy-frontend
+       - deploy-frontend
       #- cloudfront-update
       
      # - test-cluster
-       - delete-cluster
+      # - delete-cluster
