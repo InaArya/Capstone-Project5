@@ -72,7 +72,7 @@ jobs:
               --stack-name "frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
               #exit 1
-              aws s3 cp ~/index.html s3://frontend-${CIRCLE_WORKFLOW_ID:0:7}
+              aws s3 cp index.html s3://frontend-${CIRCLE_WORKFLOW_ID:0:7}
 
   create-and-upload-docker-image:
     machine: true
