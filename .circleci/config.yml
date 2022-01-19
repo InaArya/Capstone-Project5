@@ -210,16 +210,15 @@ jobs:
 workflows:
   default:
     jobs:
-      #- deploy-backend
-      #- create-and-upload-docker-image 
-     # - lint 
-     # - create-eks-cluster
-     # - deploy-cluster
-       - deploy-frontend
-       - deploy-frontend-objects:
+      - deploy-backend
+      - deploy-frontend
+      - deploy-frontend-objects:
           requires: [deploy-frontend]
-        
-      #- cloudfront-update
-      
-     # - test-cluster
-      # - delete-cluster
+      - cloudfront-update
+      - lint 
+      - create-and-upload-docker-image 
+      - create-eks-cluster
+      - deploy-cluster
+      - test-cluster
+      - delete-cluster
+       
