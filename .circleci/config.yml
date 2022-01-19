@@ -214,11 +214,18 @@ workflows:
       - deploy-frontend
       - deploy-frontend-objects:
           requires: [deploy-frontend]
-      - cloudfront-update
+      - cloudfront-update:
+          requires: [deploy-frontend-objects]
       - lint 
-      - create-and-upload-docker-image 
-      - create-eks-cluster
-      - deploy-cluster
-      - test-cluster
-      - delete-cluster
+      - create-and-upload-docker-image: 
+          requires: [lint]
+      - create-eks-cluster:
+          requires: [create-and-upload-docker-image]
+      - deploy-cluster:
+          requires: [create-eks-cluster]
+      - test-cluster:
+          requires: [deploy-cluster]
+      - delete-cluster:
+          requires: [test-cluster]
+      
        
