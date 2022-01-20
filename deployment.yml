@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: simple-html-container
-        image: inaarya/latest
+        image: inaarya/path/latest
         imagePullPolicy: "Always"
         ports:
         - containerPort: 80
